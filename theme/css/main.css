@@ -96,7 +96,7 @@ ul.commentlist ul.children li { list-style-type:none; border:1px solid #AAA }
 input#submit { font-weight:bold; }
 input#s { width:70%; height:auto; margin:5px 0px; }
 
-#footer { text-align:center; clear:both; }
+#footer { text-align:center; clear:both; position: absolute; bottom: 0; width: inherit;}
 #footer div { margin:30px 0px 0px 0px; padding:30px 0px 0px 0px; border-top:1px dotted #C8C8C8; }
 #footer li { list-style-type:none; }
 #footer .widget_tag_cloud h2 { display:none; }
