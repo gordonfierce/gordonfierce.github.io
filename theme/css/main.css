@@ -12,7 +12,7 @@
 
 @import url("pygment.css");
 
-body { margin:0px; padding:20px 0px; text-align:center; font-family:Monospace; color:#585858; height:auto; min-height:100% }
+body { margin:0px; padding:20px 0px; text-align:center; font-family:Monospace; color:#585858; }
 a, a:visited { text-decoration:none; color:rgb(17, 170, 34); }
 a:hover { color:#FFF; background-color:#5353CB }
 h1, h2, h3, h4, h5, h6, h7 { margin:0px; text-transform:uppercase; }
@@ -43,7 +43,7 @@ ul.sub-menu, ul.children { margin:0px 10px 0px 0px; }
 
 .entry { font-size: 14px; line-height: 20px; }
 .entry h2, h3, h4, h5 { margin:30px 0px 10px 0px; }
-.entry img { display:block; border:1px solid #BDBDBD !important; width:100%; height:auto; }
+.entry img { display:block; border:1px solid #BDBDBD !important; max-width:100%; height:auto; }
 .entry img.wp-smiley { border:0px !important; }
 .entry a img:hover { background-color:transparent; border:1px solid #E5E5E5 !important; }
 .entry .aligncenter, div.aligncenter {	margin:10px auto; }
