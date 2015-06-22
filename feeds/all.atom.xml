@@ -6,9 +6,24 @@
 &lt;code&gt;import IPython
 IPython.core.page.page = IPython.core.page.display_page&lt;/code&gt; 
 Importing IPython and assigning the default page function to &lt;code&gt;display_page&lt;/code&gt; will do just that.&lt;/li&gt;
-&lt;/ul&gt;</summary></entry><entry><title>What do I do next?</title><link href="http://gordonfierce.github.io/what-do-i-do-next.html" rel="alternate"></link><updated>2015-05-17T00:00:00-04:00</updated><author><name>Gordon Fierce</name></author><id>tag:gordonfierce.github.io,2015-05-17:what-do-i-do-next.html</id><summary type="html">&lt;p&gt;So, now that the Iron Yard is well past me and I feel conversant in Python, what do I learn next?&lt;/p&gt;
-&lt;p&gt;Maybe C/C++. I've done a bit of Learn C the Hard Way, and that's been pleasant.&lt;/p&gt;
-&lt;p&gt;Think Bayes, Think Stats, and the like all seem fun.&lt;/p&gt;</summary></entry><entry><title>Testing Bokeh</title><link href="http://gordonfierce.github.io/testing-bokeh.html" rel="alternate"></link><updated>2015-04-20T00:00:00-04:00</updated><author><name>Gordon Fierce</name></author><id>tag:gordonfierce.github.io,2015-04-20:testing-bokeh.html</id><summary type="html">&lt;p&gt;
+&lt;/ul&gt;</summary></entry><entry><title>What do I do next?</title><link href="http://gordonfierce.github.io/what-do-i-do-next.html" rel="alternate"></link><updated>2015-05-17T00:00:00-04:00</updated><author><name>Gordon Fierce</name></author><id>tag:gordonfierce.github.io,2015-05-17:what-do-i-do-next.html</id><summary type="html">&lt;p&gt;It's not that I don't know what I want to do, it's that I don't know where to start.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;In the tradition of recursive self-improvement, I might have to build out a lightweight set of tools to help manage my todo.txt. &lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;I want to learn some C and C++. Key resources: Learn C the Hard Way, ThinkOS, &lt;a href="http://www.greenteapress.com/thinkcpp/index.html"&gt;Think Like A Computer Scientist: C++ Edition&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Think Bayes, Think Stats, and the like all seem fun.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Work through the canon &lt;a href="https://docs.djangoproject.com/en/1.8/"&gt;Django tutorials&lt;/a&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Learn more vim.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</summary></entry><entry><title>Testing Bokeh</title><link href="http://gordonfierce.github.io/testing-bokeh.html" rel="alternate"></link><updated>2015-04-20T00:00:00-04:00</updated><author><name>Gordon Fierce</name></author><id>tag:gordonfierce.github.io,2015-04-20:testing-bokeh.html</id><summary type="html">&lt;p&gt;
 &lt;div class="cell border-box-sizing code_cell rendered"&gt;
 &lt;div class="input"&gt;
 &lt;div class="prompt input_prompt"&gt;In&amp;nbsp;[13]:&lt;/div&gt;
