@@ -223,21 +223,2104 @@ jQuery(document).ready(function($) {
         
 
             <header>
-            <h1><a href="http://gordonfierce.github.io" id="site-title">  </a>  <a href="http://gordonfierce.github.io/tips-for-giving-a-talk-with-ipython.html" id="page-title">Tips for Giving A Talk With IPython</a></h1>
-<time datetime="2015-06-15T00:00:00-04:00">Mon 15 June 2015</time>            </header>
+            <h1><a href="http://gordonfierce.github.io" id="site-title">  </a>  <a href="http://gordonfierce.github.io/todo-list-hacks.html" id="page-title">Todo List Hacks</a></h1>
+<time datetime="2015-06-23T00:00:00-04:00">Tue 23 June 2015</time>            </header>
 
             <article>
-                <p>I recently gave a quick demo of some IPython magic functions that I thought the Greenville Iron Yard's Python class would find useful. The talk's available here.</p>
-<h2>Tips:</h2>
+                <p>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I've tried a lot of todo managers in the past. These days, I just cram things in a todo.txt file in my home directory. That's nice, but I want to build out some tools that'll help keep myself organized.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[194]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="o">%%</span><span class="k">writefile</span> todo.txt
+Find the kitten.
+Return overdue books.
+Check for Prime95 errors.
+Optimize todo list.
+Buy new socks.
+Mix tomorrow&#39;s soylent.
+Work through Django tutorial.
+Watch some Pycon talks.
+Water tomatoes.
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Overwriting todo.txt
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[195]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">re</span><span class="o">,</span> <span class="nn">random</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;todo.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">todos</span> <span class="o">=</span> <span class="p">[</span><span class="n">todo</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">todo</span> <span class="ow">in</span>  <span class="n">file</span> <span class="k">if</span> <span class="n">todo</span> <span class="o">!=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">]</span>
+<span class="n">todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[195]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Find the kitten.&apos;,
+ &apos;Return overdue books.&apos;,
+ &apos;Check for Prime95 errors.&apos;,
+ &apos;Optimize todo list.&apos;,
+ &apos;Buy new socks.&apos;,
+ &quot;Mix tomorrow&apos;s soylent.&quot;,
+ &apos;Work through Django tutorial.&apos;,
+ &apos;Watch some Pycon talks.&apos;,
+ &apos;Water tomatoes.&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So, one of the basic actions I want to take with my todo list is to review a randomly selected subset. Often I'll find a todo item and I'll want to rewrite it, because I framed it poorly when I first wrote it. Also, the physical act of retyping an item forces my attention back to it more than just looking at it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[196]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">review</span><span class="p">(</span><span class="n">todos</span><span class="p">):</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">todos</span><span class="p">)</span>
+    <span class="n">chosen_index</span> <span class="o">=</span> <span class="n">todos</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+    <span class="n">chosen_one</span> <span class="o">=</span> <span class="n">todos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">chosen_index</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">chosen_one</span><span class="p">)</span>
+    <span class="n">review</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+    <span class="n">todos</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">chosen_index</span><span class="p">,</span> <span class="n">review</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[197]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">review</span><span class="p">(</span><span class="n">todos</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Optimize todo list.
+Create cool todo list functions.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Creating functions that act on the todo list is much more doable than whatever I was thinking when I said to optimize it.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[198]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[198]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Find the kitten.&apos;,
+ &apos;Return overdue books.&apos;,
+ &apos;Check for Prime95 errors.&apos;,
+ &apos;Create cool todo list functions.&apos;,
+ &apos;Buy new socks.&apos;,
+ &quot;Mix tomorrow&apos;s soylent.&quot;,
+ &apos;Work through Django tutorial.&apos;,
+ &apos;Watch some Pycon talks.&apos;,
+ &apos;Water tomatoes.&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>My initial idea for sorting my todos was to randomly choose two, and then compare them.</p>
+<p>But randomly choosing and swapping elements based on their comparaison is actually pretty awful, when instead we can whip out merge sort, which will systematically sort them all.</p>
+<p>First, write a function that allows me to do pairwise prioritization:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[202]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">prioritize</span><span class="p">(</span><span class="n">item_a</span><span class="p">,</span> <span class="n">item_b</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;a: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_a</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;b: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_b</span><span class="p">))</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&quot;More important? a/b: &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">&#39;b&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">False</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This essentially works as a less than function for two string inputs, prompting the user for a comparaison.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[203]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">prioritize</span><span class="p">(</span><span class="s">&quot;Buy new socks.&quot;</span><span class="p">,</span> <span class="s">&quot;Return overdue books.&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Buy new socks.
+b: Return overdue books.
+More important? a/b: b
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[203]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[204]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">prioritize</span><span class="p">(</span><span class="s">&quot;Return overdue books.&quot;</span><span class="p">,</span> <span class="s">&quot;Buy new socks.&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Return overdue books.
+b: Buy new socks.
+More important? a/b: a
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[204]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>False</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then I use it in the comparaison in the sorting function (which I found at <a href="http://danishmujeeb.com/blog/2014/01/basic-sorting-algorithms-implemented-in-python">danishmujeeb.com</a> and adapted):</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[205]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">merge_sort</span><span class="p">(</span><span class="n">todos</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">todos</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+
+        <span class="n">mid</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">todos</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>        
+        <span class="n">left</span> <span class="o">=</span> <span class="n">todos</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">mid</span><span class="p">]</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">todos</span><span class="p">[</span><span class="n">mid</span><span class="p">:]</span>
+
+        <span class="n">merge_sort</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>            
+        <span class="n">merge_sort</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>           
+
+        <span class="n">left_index</span><span class="p">,</span> <span class="n">right_index</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">todos</span><span class="p">)):</span>     
+
+            <span class="n">lval</span> <span class="o">=</span> <span class="n">left</span><span class="p">[</span><span class="n">left_index</span><span class="p">]</span> <span class="k">if</span> <span class="n">left_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">left</span><span class="p">)</span> <span class="k">else</span> <span class="k">None</span>
+            <span class="n">rval</span> <span class="o">=</span> <span class="n">right</span><span class="p">[</span><span class="n">right_index</span><span class="p">]</span> <span class="k">if</span> <span class="n">right_index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">right</span><span class="p">)</span> <span class="k">else</span> <span class="k">None</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">lval</span> <span class="ow">and</span> <span class="n">rval</span> <span class="ow">and</span> <span class="n">prioritize</span><span class="p">(</span><span class="n">lval</span><span class="p">,</span> <span class="n">rval</span><span class="p">))</span> <span class="ow">or</span> <span class="n">rval</span> <span class="ow">is</span> <span class="k">None</span><span class="p">:</span>
+                <span class="n">todos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lval</span>
+                <span class="n">left_index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">lval</span> <span class="ow">and</span> <span class="n">rval</span><span class="p">)</span> <span class="ow">or</span> <span class="n">lval</span> <span class="ow">is</span> <span class="k">None</span><span class="p">:</span>
+                <span class="n">todos</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">rval</span>
+                <span class="n">right_index</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Could not merge, sub arrays sizes do not match the main array&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[206]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">merge_sort</span><span class="p">(</span><span class="n">todos</span><span class="p">)</span>
+<span class="n">todos</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Find the kitten.
+b: Return overdue books.
+More important? a/b: a
+a: Check for Prime95 errors.
+b: Buy new socks.
+More important? a/b: a
+a: Return overdue books.
+b: Buy new socks.
+More important? a/b: a
+a: Return overdue books.
+b: Check for Prime95 errors.
+More important? a/b: a
+a: Create cool todo list functions.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b: b
+a: Watch some Pycon talks.
+b: Water tomatoes.
+More important? a/b: b
+a: Work through Django tutorial.
+b: Watch some Pycon talks.
+More important? a/b: a
+a: Work through Django tutorial.
+b: Water tomatoes.
+More important? a/b: b
+a: Create cool todo list functions.
+b: Watch some Pycon talks.
+More important? a/b: a
+a: Create cool todo list functions.
+b: Work through Django tutorial.
+More important? a/b: a
+a: Create cool todo list functions.
+b: Water tomatoes.
+More important? a/b: b
+a: Mix tomorrow&apos;s soylent.
+b: Water tomatoes.
+More important? a/b: b
+a: Buy new socks.
+b: Watch some Pycon talks.
+More important? a/b: b
+a: Check for Prime95 errors.
+b: Watch some Pycon talks.
+More important? a/b: a
+a: Check for Prime95 errors.
+b: Work through Django tutorial.
+More important? a/b: a
+a: Check for Prime95 errors.
+b: Create cool todo list functions.
+More important? a/b: b
+a: Return overdue books.
+b: Create cool todo list functions.
+More important? a/b: a
+a: Return overdue books.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b: a
+a: Return overdue books.
+b: Water tomatoes.
+More important? a/b: a
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[207]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[207]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[&apos;Find the kitten.&apos;,
+ &apos;Return overdue books.&apos;,
+ &apos;Water tomatoes.&apos;,
+ &quot;Mix tomorrow&apos;s soylent.&quot;,
+ &apos;Create cool todo list functions.&apos;,
+ &apos;Check for Prime95 errors.&apos;,
+ &apos;Work through Django tutorial.&apos;,
+ &apos;Watch some Pycon talks.&apos;,
+ &apos;Buy new socks.&apos;]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Obviously I'm never going to get around to buying new socks.</p>
+<p>But we can do better! Python objects can have customized comparaison functions, and there's something in the standard library to help get us up and running with new TODO objects (which will just be strings with a little embellishment).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[208]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">functools</span>
+
+<span class="k">def</span> <span class="nf">prioritize_or_equal</span><span class="p">(</span><span class="n">item_a</span><span class="p">,</span> <span class="n">item_b</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;a: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_a</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;b: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_b</span><span class="p">))</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&quot;More important? a/b/(e)qual: &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">&#39;b&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;less&#39;</span>
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">&#39;a&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;greater&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;equal&#39;</span>
+
+<span class="nd">@functools</span><span class="o">.</span><span class="n">total_ordering</span>
+<span class="k">class</span> <span class="nc">TODO</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;TODO({})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span>
+    
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;equal&#39;</span>
+    
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;less&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[214]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;todo.txt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">fancy_todos</span> <span class="o">=</span> <span class="p">[</span><span class="n">TODO</span><span class="p">(</span><span class="n">todo</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="k">for</span> <span class="n">todo</span> <span class="ow">in</span>  <span class="n">file</span> <span class="k">if</span> <span class="n">todo</span> <span class="o">!=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[215]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">fancy_todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[215]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.),
+ TODO(Return overdue books.),
+ TODO(Check for Prime95 errors.),
+ TODO(Optimize todo list.),
+ TODO(Buy new socks.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Work through Django tutorial.),
+ TODO(Watch some Pycon talks.),
+ TODO(Water tomatoes.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>However cool using mergesort is, it turns out that there's an even more interesting sorting algorithm <em>baked right into Python</em>. Timsort is actually a hybrid of merge and insertion sort and you can read more about it on <a href="https://en.wikipedia.org/wiki/Timsort">Wikipedia</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[217]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">fancy_todos</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Watch some Pycon talks.
+b: Buy new socks.
+More important? a/b/(e)qual: a
+a: Work through Django tutorial.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: a
+a: Check for Prime95 errors.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: b
+a: Check for Prime95 errors.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: a
+a: Check for Prime95 errors.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: b
+a: Optimize todo list.
+b: Check for Prime95 errors.
+More important? a/b/(e)qual: a
+a: Optimize todo list.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Check for Prime95 errors.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Optimize todo list.
+More important? a/b/(e)qual: a
+a: Return overdue books.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Return overdue books.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Mix tomorrow&apos;s soylent.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Mix tomorrow&apos;s soylent.
+b: Water tomatoes.
+More important? a/b/(e)qual: b
+a: Mix tomorrow&apos;s soylent.
+b: Optimize todo list.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Optimize todo list.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Return overdue books.
+More important? a/b/(e)qual: a
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[218]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">fancy_todos</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="n">fancy_todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[218]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.),
+ TODO(Return overdue books.),
+ TODO(Water tomatoes.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Optimize todo list.),
+ TODO(Work through Django tutorial.),
+ TODO(Check for Prime95 errors.),
+ TODO(Watch some Pycon talks.),
+ TODO(Buy new socks.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>But wait! it gets even better! We don't need to order every single thing! We can just get the top-n most important items in the list using a priority queue.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[219]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="kn">import</span> <span class="nn">heapq</span>
+<span class="n">top_three</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">fancy_todos</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Return overdue books.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Return overdue books.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Optimize todo list.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Optimize todo list.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Check for Prime95 errors.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Check for Prime95 errors.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Buy new socks.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Buy new socks.
+More important? a/b/(e)qual: a
+a: Return overdue books.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Return overdue books.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Return overdue books.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Return overdue books.
+More important? a/b/(e)qual: a
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[220]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">top_three</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[220]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.), TODO(Return overdue books.), TODO(Water tomatoes.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So right now I'm answering the same question several times, which I think is a function of using functool's total ordering to complete our comparison functions. Luckily, we can wrap a cache around the function that calls on the user to sort the todos. This way, hopefully, we aren't asked the same question multiple times.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[221]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="nd">@functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">prioritize_or_equal</span><span class="p">(</span><span class="n">item_a</span><span class="p">,</span> <span class="n">item_b</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;a: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_a</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;b: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_b</span><span class="p">))</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&quot;More important? a/b/(e)qual: &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">&#39;b&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;less&#39;</span>
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">&#39;a&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;greater&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;equal&#39;</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[222]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">heapq</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">fancy_todos</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Return overdue books.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Optimize todo list.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Check for Prime95 errors.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: a
+a: Water tomatoes.
+b: Buy new socks.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Return overdue books.
+More important? a/b/(e)qual: a
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[222]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.), TODO(Return overdue books.), TODO(Water tomatoes.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Much faster! Way less redundant! I get the sense that having sorted the list beforehand resulted in the fact that I was answering 'a' all the way down.</p>
+<p>So, the new cache makes things much quicker, but we are still doing the same comparison two times: a vs. b and b vs. a. Either we keep this bug as a feature (Maybe reframing the comparison is a valuable re-assessment), or I can probably hack together something that'll only make the comparison once. (Initial plan: We compare things in alphabetical order and cache the result. That way when we compare the reverse, it's switched back to the alphabetical order and the cached result is used. That'll get the job done, but there's probably something already in Python that'll do this for us.)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[223]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="nd">@functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">prioritize_or_equal</span><span class="p">(</span><span class="n">item_a</span><span class="p">,</span> <span class="n">item_b</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;a: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_a</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;b: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_b</span><span class="p">))</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&quot;More important? a/b/(e)qual: &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">&#39;b&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;less&#39;</span>
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">&#39;a&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;greater&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;equal&#39;</span>
+
+<span class="nd">@functools</span><span class="o">.</span><span class="n">total_ordering</span>
+<span class="k">class</span> <span class="nc">TODO</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;TODO({})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span>
+    
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;equal&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;equal&#39;</span>
+    
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;less&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;greater&#39;</span>
+
+        
+<span class="n">fancy_todos</span> <span class="o">=</span> <span class="p">[</span><span class="n">TODO</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">todos</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Man, that is ugly. However, the time saved comparing TODO items by hand is worth caching the reversed operation. I'll keep an eye out for a better solution.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[228]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">fancy_todos</span><span class="p">)</span>
+<span class="n">important</span> <span class="o">=</span> <span class="n">heapq</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">fancy_todos</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Check for Prime95 errors.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: a
+a: Watch some Pycon talks.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: b
+a: Check for Prime95 errors.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Check for Prime95 errors.
+b: Find the kitten.
+More important? a/b/(e)qual: b
+a: Check for Prime95 errors.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b/(e)qual: b
+a: Find the kitten.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b/(e)qual: a
+a: Mix tomorrow&apos;s soylent.
+b: Optimize todo list.
+More important? a/b/(e)qual: a
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So, suppose I have my unsorted list of todos, and I go through the trouble of finding the two most important ones. I'd like those moved to the top of the list.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[229]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">important</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[229]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.), TODO(Return overdue books.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[232]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">fancy_todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[232]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Watch some Pycon talks.),
+ TODO(Check for Prime95 errors.),
+ TODO(Work through Django tutorial.),
+ TODO(Find the kitten.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Optimize todo list.),
+ TODO(Return overdue books.),
+ TODO(Buy new socks.),
+ TODO(Water tomatoes.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[233]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">most</span> <span class="o">=</span> <span class="n">fancy_todos</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">fancy_todos</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">important</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">fancy_todos</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">most</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Find the kitten.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: a
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Actually, we have a serious problem here. By implementing an <code>__eq__</code> method, we've started to use the interactive prioritization in places we don't want. That's bad.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[234]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">fancy_todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[234]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.),
+ TODO(Watch some Pycon talks.),
+ TODO(Check for Prime95 errors.),
+ TODO(Work through Django tutorial.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Optimize todo list.),
+ TODO(Return overdue books.),
+ TODO(Buy new socks.),
+ TODO(Water tomatoes.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now, I'm interested in this heap business. What happens if we heapify our todo list?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[235]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">fancy_todos</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Buy new socks.
+b: Water tomatoes.
+More important? a/b/(e)qual: b
+a: Buy new socks.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: b
+a: Check for Prime95 errors.
+b: Optimize todo list.
+More important? a/b/(e)qual: b
+a: Buy new socks.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b/(e)qual: b
+a: Water tomatoes.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Buy new socks.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: b
+a: Buy new socks.
+b: Check for Prime95 errors.
+More important? a/b/(e)qual: b
+a: Mix tomorrow&apos;s soylent.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: a
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[236]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">fancy_todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[236]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Buy new socks.),
+ TODO(Watch some Pycon talks.),
+ TODO(Check for Prime95 errors.),
+ TODO(Work through Django tutorial.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Optimize todo list.),
+ TODO(Return overdue books.),
+ TODO(Find the kitten.),
+ TODO(Water tomatoes.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[237]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">heapq</span><span class="o">.</span><span class="n">heappop</span><span class="p">(</span><span class="n">fancy_todos</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Mix tomorrow&apos;s soylent.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[237]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>TODO(Buy new socks.)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Maybe storing the whole thing as a heap is way better than an approximately sorted list.</p>
+<p>However, right now we're getting the least important things at the top of the heap, which is not useful at all, unless I'm interested in a really perverse kind of procrastination.</p>
+<p>So, strategizing here:</p>
 <ul>
-<li>Converting an ipython notebook to Reveal.js slides is pretty great, but you might need to override IPython's default pager behavior. If you want to present anything that would normally display in the pager in your slides, you have to get the pager to print to regular output. 
-<code>import IPython
-IPython.core.page.page = IPython.core.page.display_page</code> 
-Importing IPython and assigning the default page function to <code>display_page</code> will do just that.</li>
-</ul>            </article>
+<li>I'm going to change the comparison here so that more important items are less than less important items, so that Python's min-heap will help us find more important things first and spend less time on the less important items.</li>
+<li>I'm changing the cached function to have a maxsize of None (which lets the cache have an unlimited size), which should mean that we're not losing any of our cached comparisons. Even with huge todo lists, I don't think we're going to get very big relative to what the computer can handle.</li>
+<li>I'd love to keep storing everything in a todo.txt file without embelishments. But I worry that without storing additional state, there's no way to store the heapified list as a text file and keep adding new items to the end without having to re-heapify the whole thing. The most efficient approach would be to do a heap push with each item when I come up with it, or to somehow keep track of which items are totally new and then heap push them when I need to add new ones.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[238]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="nd">@functools</span><span class="o">.</span><span class="n">lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="k">None</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">prioritize_or_equal</span><span class="p">(</span><span class="n">item_a</span><span class="p">,</span> <span class="n">item_b</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;a: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_a</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s">&quot;b: {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item_b</span><span class="p">))</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s">&quot;More important? a/b/(e)qual: &quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">&#39;b&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;less&#39;</span>
+    <span class="k">elif</span> <span class="n">choice</span> <span class="o">==</span> <span class="s">&#39;a&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;greater&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s">&#39;equal&#39;</span>
+
+<span class="nd">@functools</span><span class="o">.</span><span class="n">total_ordering</span>
+<span class="k">class</span> <span class="nc">TODO</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;TODO({})&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span>
+    
+    <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;equal&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;equal&#39;</span>
+    
+    <span class="k">def</span> <span class="nf">__lt__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">&lt;</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;greater&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prioritize_or_equal</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;less&#39;</span>
+
+        
+<span class="n">fancy_todos</span> <span class="o">=</span> <span class="p">[</span><span class="n">TODO</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">todos</span><span class="p">]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[239]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">fancy_todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[239]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.),
+ TODO(Return overdue books.),
+ TODO(Check for Prime95 errors.),
+ TODO(Optimize todo list.),
+ TODO(Buy new socks.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Work through Django tutorial.),
+ TODO(Watch some Pycon talks.),
+ TODO(Water tomatoes.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[241]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">fancy_todos</span><span class="p">)</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">fancy_todos</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Buy new socks.
+b: Optimize todo list.
+More important? a/b/(e)qual: b
+a: Optimize todo list.
+b: Return overdue books.
+More important? a/b/(e)qual: b
+a: Water tomatoes.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Mix tomorrow&apos;s soylent.
+b: Return overdue books.
+More important? a/b/(e)qual: b
+a: Optimize todo list.
+b: Watch some Pycon talks.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Return overdue books.
+More important? a/b/(e)qual: a
+a: Check for Prime95 errors.
+b: Water tomatoes.
+More important? a/b/(e)qual: b
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[242]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">fancy_todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[242]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.),
+ TODO(Return overdue books.),
+ TODO(Water tomatoes.),
+ TODO(Optimize todo list.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Check for Prime95 errors.),
+ TODO(Work through Django tutorial.),
+ TODO(Watch some Pycon talks.),
+ TODO(Buy new socks.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[243]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">other_todos</span> <span class="o">=</span> <span class="p">[</span><span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Create a mark-done function.&quot;</span><span class="p">),</span> <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Do laundry.&quot;</span><span class="p">),</span> <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Put IPython talk on Github.&quot;</span><span class="p">),</span> <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Take out trash.&quot;</span><span class="p">)]</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">other_todos</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Do laundry.
+b: Take out trash.
+More important? a/b/(e)qual: b
+a: Put IPython talk on Github.
+b: Take out trash.
+More important? a/b/(e)qual: b
+a: Create a mark-done function.
+b: Do laundry.
+More important? a/b/(e)qual: b
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[244]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">other_todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[244]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Take out trash.),
+ TODO(Do laundry.),
+ TODO(Put IPython talk on Github.),
+ TODO(Create a mark-done function.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[246]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">merged_heap</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">heapq</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">fancy_todos</span><span class="p">,</span> <span class="n">other_todos</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Find the kitten.
+b: Take out trash.
+More important? a/b/(e)qual: a
+a: Return overdue books.
+b: Take out trash.
+More important? a/b/(e)qual: a
+a: Take out trash.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Do laundry.
+b: Optimize todo list.
+More important? a/b/(e)qual: a
+a: Optimize todo list.
+b: Put IPython talk on Github.
+More important? a/b/(e)qual: b
+a: Create a mark-done function.
+b: Optimize todo list.
+More important? a/b/(e)qual: b
+a: Create a mark-done function.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b/(e)qual: b
+a: Check for Prime95 errors.
+b: Create a mark-done function.
+More important? a/b/(e)qual: b
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[247]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">merged_heap</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[247]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.),
+ TODO(Return overdue books.),
+ TODO(Take out trash.),
+ TODO(Water tomatoes.),
+ TODO(Do laundry.),
+ TODO(Put IPython talk on Github.),
+ TODO(Optimize todo list.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Create a mark-done function.),
+ TODO(Check for Prime95 errors.),
+ TODO(Work through Django tutorial.),
+ TODO(Watch some Pycon talks.),
+ TODO(Buy new socks.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I'm not sure whether this is getting really fast because I'm caching all of my comparisons, or because heaps are really parsimonious, but this is totally awesome.</p>
+<p>So, now I'll put together some helper functions to translate between a list of TODO objects and the todo.txt file. Obviously this is where things get dangerous, because accidentally overwriting your todo list and losing the list of things you were supposed to do is a <em>bad thing</em> and probably a net negative for general productivity.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[248]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">write_todos</span><span class="p">(</span><span class="n">todo_list</span><span class="p">,</span> <span class="n">file_name</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">todo_list</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[249]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">write_todos</span><span class="p">(</span><span class="n">fancy_todos</span><span class="p">,</span> <span class="s">&#39;new_todos.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[250]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">read_todos</span><span class="p">(</span><span class="n">todo_file</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">todo_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">todos</span> <span class="o">=</span> <span class="p">[</span><span class="n">TODO</span><span class="p">(</span><span class="n">todo</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span> <span class="k">for</span> <span class="n">todo</span> <span class="ow">in</span>  <span class="n">file</span> <span class="k">if</span> <span class="n">todo</span> <span class="o">!=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">todos</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[251]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">file_todos</span> <span class="o">=</span> <span class="n">read_todos</span><span class="p">(</span><span class="s">&#39;todo.txt&#39;</span><span class="p">)</span>
+<span class="n">heapq</span><span class="o">.</span><span class="n">heapify</span><span class="p">(</span><span class="n">file_todos</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Watch some Pycon talks.
+b: Water tomatoes.
+More important? a/b/(e)qual: b
+a: Optimize todo list.
+b: Water tomatoes.
+More important? a/b/(e)qual: b
+a: Mix tomorrow&apos;s soylent.
+b: Work through Django tutorial.
+More important? a/b/(e)qual: a
+a: Check for Prime95 errors.
+b: Mix tomorrow&apos;s soylent.
+More important? a/b/(e)qual: b
+a: Buy new socks.
+b: Water tomatoes.
+More important? a/b/(e)qual: b
+a: Return overdue books.
+b: Water tomatoes.
+More important? a/b/(e)qual: a
+a: Find the kitten.
+b: Optimize todo list.
+More important? a/b/(e)qual: a
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[252]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">write_todos</span><span class="p">(</span><span class="n">file_todos</span><span class="p">,</span> <span class="s">&#39;file_todos.txt&#39;</span><span class="p">)</span>
+<span class="o">%</span><span class="k">cat</span> file_todos.txt
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Find the kitten.
+Return overdue books.
+Mix tomorrow&apos;s soylent.
+Water tomatoes.
+Buy new socks.
+Check for Prime95 errors.
+Work through Django tutorial.
+Watch some Pycon talks.
+Optimize todo list.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[253]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pre_sorted</span> <span class="o">=</span> <span class="n">read_todos</span><span class="p">(</span><span class="s">&#39;new_todos.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[254]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">new_todo</span> <span class="o">=</span> <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Research quantum game theory.&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[255]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">pre_sorted</span><span class="p">,</span> <span class="n">new_todo</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>a: Mix tomorrow&apos;s soylent.
+b: Research quantum game theory.
+More important? a/b/(e)qual: a
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[256]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pre_sorted</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[256]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.),
+ TODO(Return overdue books.),
+ TODO(Water tomatoes.),
+ TODO(Optimize todo list.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Check for Prime95 errors.),
+ TODO(Work through Django tutorial.),
+ TODO(Watch some Pycon talks.),
+ TODO(Buy new socks.),
+ TODO(Research quantum game theory.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Cool! I added a new todo and, with one comparison, kicked it into the heap. I'll probably end up reading about quantum game theory long before I'll get around to buying new socks, but I've got a kitten to find and overdue books to return before I have to worry about that.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[257]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">insert_todo</span><span class="p">(</span><span class="n">todos</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="n">heapq</span><span class="o">.</span><span class="n">heappush</span><span class="p">(</span><span class="n">todos</span><span class="p">,</span> <span class="n">TODO</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>So far I have a pretty great set of tools here. I can continue to keep my todos in a text file, and I can sort it efficiently. If I use heapq's push and pop functions, then it'll stay sufficiently sorted, but if I just concatenate new todos on the end, then I'll ruin the heap. That's probably an acceptable sacrifice for now.</p>
+<p>I almost forgot about my review function!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[258]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="k">def</span> <span class="nf">review</span><span class="p">(</span><span class="n">todos</span><span class="p">):</span>
+    <span class="n">item</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">todos</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">review</span> <span class="o">=</span> <span class="nb">input</span><span class="p">()</span>
+    <span class="n">item</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">review</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[259]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">review</span><span class="p">(</span><span class="n">pre_sorted</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Return overdue books.
+Return overdue books.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[260]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="p">[</span><span class="n">review</span><span class="p">(</span><span class="n">pre_sorted</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Check for Prime95 errors.
+Check to see that Prime95 is still running.
+Water tomatoes.
+Water tomatoes.
+Watch some Pycon talks.
+Watch the Pycon talks on machine learning and sockets.
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt output_prompt">Out[260]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[None, None, None]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[261]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span class="n">pre_sorted</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt output_prompt">Out[261]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[TODO(Find the kitten.),
+ TODO(Return overdue books.),
+ TODO(Water tomatoes.),
+ TODO(Optimize todo list.),
+ TODO(Mix tomorrow&apos;s soylent.),
+ TODO(Check to see that Prime95 is still running.),
+ TODO(Work through Django tutorial.),
+ TODO(Watch the Pycon talks on machine learning and sockets.),
+ TODO(Buy new socks.),
+ TODO(Research quantum game theory.)]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Sweet.</p>
+<p>So, in the future, I'd like a review interaction that gives me the opportunity to break compound todo items into separate items (like the Pycon talks item). In the distant future, it'd be awesome to have TODO items with probability distributions over things like how long they'll take and how valuable they are. Maybe I can attach something like an elo rating, so that I can occaisonally kick back and let the list sort itself based off of an item's past comparisons against other todos. For now, though, I've got a set of functions I can use on my todo.txt file (with some adjustments, of course).</p>
+
+</div>
+</div>
+</div></p>            </article>
                 <section id="article-list">
                     <h2>All posts</h2>
                     <ol>
+
+            <li><a href="http://gordonfierce.github.io/tips-for-giving-a-talk-with-ipython.html" rel="bookmark" title="Permalink to Tips for Giving A Talk With IPython">Tips for Giving A Talk With IPython</a></li>
 
             <li><a href="http://gordonfierce.github.io/what-do-i-do-next.html" rel="bookmark" title="Permalink to What do I do next?">What do I do next?</a></li>
 
@@ -282,6 +2365,7 @@ Importing IPython and assigning the default page function to <code>display_page<
             <div>
               <h3>Recent Blog Posts</h3>
               <ol>
+                <li><a href="http://gordonfierce.github.io/todo-list-hacks.html" rel="bookmark" title="Permalink to Todo List Hacks">Todo List Hacks</a></li>
                 <li><a href="http://gordonfierce.github.io/tips-for-giving-a-talk-with-ipython.html" rel="bookmark" title="Permalink to Tips for Giving A Talk With IPython">Tips for Giving A Talk With IPython</a></li>
                 <li><a href="http://gordonfierce.github.io/what-do-i-do-next.html" rel="bookmark" title="Permalink to What do I do next?">What do I do next?</a></li>
                 <li><a href="http://gordonfierce.github.io/testing-bokeh.html" rel="bookmark" title="Permalink to Testing Bokeh">Testing Bokeh</a></li>
